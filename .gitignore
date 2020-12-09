@@ -213,6 +213,10 @@ ENV/
 
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm
 
+# secrets
+secrets.*
+!secrets.example.json
+
 # upload files
 uploads
 
