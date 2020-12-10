@@ -13,7 +13,7 @@ secret_file = os.path.join(settings.BASE_DIR, 'secrets.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
-def get_secret(setting, secrets=secrets):
+def get_secret(setting, secrets=secrets) -> str:
     try:
         return secrets[setting]
     except KeyError:
@@ -26,10 +26,10 @@ PAGE_ACCESS_TOKEN = get_secret("ACCESS_TOKEN")
 SCHOOL_NAME = "선린인터넷고등학교"
 
 def chat(request):
-  if request.method == 'GET':
+  if request.method == 'GET': # 
     token_sent = request.GET.get('hub.verify_token', '')
     return vertify_token(token_sent)
-  else:
+  else: # POST
     output = request.get_json()
     for event in output['entry']:
       messaging = event['messaging']
@@ -52,7 +52,8 @@ def index(request):
       send_mail(
       '선린인터넷고등학교 메신저 봇, 선린봇에 당신을 초대합니다!',
       '안녕하세요, 선린인터넷고등학교 메신저 봇에 관심을 가져 주셔서 감사합니다.\n페이스북 페이지 링크는 다음과 같습니다.\n\nhttps://fb.me/sunrinbot\n많은 사랑 부탁드립니다. 감사합니다.',
-      to=[email],
+      'tae.gun7784@gmail.com',
+      [email],
       fail_silently=False,)
       mail = MailList(sender="tae.gun7784@gmail.com", receiver=email)
       mail.save()

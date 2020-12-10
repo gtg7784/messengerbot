@@ -13,7 +13,7 @@ secret_file = os.path.join(settings.BASE_DIR, 'secrets.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
-def get_secret(setting, secrets=secrets):
+def get_secret(setting, secrets=secrets) -> str:
     try:
         return secrets[setting]
     except KeyError:

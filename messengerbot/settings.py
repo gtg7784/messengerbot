@@ -143,10 +143,6 @@ STATICFILES_DIRS = [
 ]
 
 
-# 사진
-MEDIA_URL = '/files/' # url
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads') # 저장할 곳
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'tae.gun7784@gmail.com'
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_PASSWORD")
