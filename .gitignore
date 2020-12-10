@@ -228,4 +228,6 @@ db.sqlite3
 
 # model checkpoint
 model_chp/*
-!model_chp/,gitkeep
+
+# git keep
+./*/**/.gitkeep
