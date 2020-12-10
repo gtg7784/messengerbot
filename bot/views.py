@@ -6,6 +6,7 @@ from django.http.response import BadHeaderError
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from .utils import vertify_token, send_message, choice_message
+from .models import MailList
 
 secret_file = os.path.join(settings.BASE_DIR, 'secrets.json')
 
@@ -51,9 +52,10 @@ def index(request):
       send_mail(
       '선린인터넷고등학교 메신저 봇, 선린봇에 당신을 초대합니다!',
       '안녕하세요, 선린인터넷고등학교 메신저 봇에 관심을 가져 주셔서 감사합니다.\n페이스북 페이지 링크는 다음과 같습니다.\n\nhttps://fb.me/sunrinbot\n많은 사랑 부탁드립니다. 감사합니다.',
-      'from@example.com',
-      [email],
+      to=[email],
       fail_silently=False,)
+      mail = MailList(sender="tae.gun7784@gmail.com", receiver=email)
+      mail.save()
     except BadHeaderError:
       return HttpResponse('Invalid header found.')
     
