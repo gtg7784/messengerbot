@@ -6,9 +6,23 @@ from pytz import timezone
 from pymessenger.bot import Bot
 from .train import KoGPT2Chat
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
-ACCESS_TOKEN = ''
-VERIFY_TOKEN = ''
+secret_file = os.path.join(settings.BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+VERIFY_TOKEN = get_secret("VERIFY_TOKEN")
+ACCESS_TOKEN = get_secret("ACCESS_TOKEN")
 bot = Bot(ACCESS_TOKEN)
 ckpt = settings.BASE_DIR / 'model_chp/model_last.ckpt'
 parser = argparse.ArgumentParser(description='Sunrinbot based on KoGPT-2')
